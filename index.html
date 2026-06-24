@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard อบรมฟื้นฟู BLS 2569</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --cream:#FAF6EE;
@@ -59,11 +59,11 @@
     margin-bottom:6px;
   }
   h1{
-    font-family:'Fraunces',serif;
-    font-weight:600;
-    font-size:clamp(28px,4vw,40px);
+    font-family:'Sarabun',sans-serif;
+    font-weight:800;
+    font-size:clamp(26px,4vw,36px);
     margin:0;
-    line-height:1.15;
+    line-height:1.2;
     color:var(--ink);
   }
   h1 em{
@@ -124,9 +124,9 @@
     box-shadow:var(--shadow);
   }
   .kpi .num{
-    font-family:'Fraunces',serif;
-    font-size:34px;
-    font-weight:600;
+    font-family:'Sarabun',sans-serif;
+    font-size:32px;
+    font-weight:700;
     color:var(--ink);
     line-height:1;
   }
@@ -148,9 +148,9 @@
     flex-wrap:wrap;
   }
   .section-head h2{
-    font-family:'Fraunces',serif;
-    font-size:22px;
-    font-weight:600;
+    font-family:'Sarabun',sans-serif;
+    font-size:21px;
+    font-weight:700;
     margin:0;
   }
   .section-head .hint{
@@ -193,9 +193,9 @@
     margin-bottom:8px;
   }
   .capacity-row .filled{
-    font-family:'Fraunces',serif;
-    font-size:26px;
-    font-weight:600;
+    font-family:'Sarabun',sans-serif;
+    font-size:25px;
+    font-weight:700;
   }
   .capacity-row .of-total{
     font-size:14px;
@@ -256,13 +256,83 @@
     font-size:14.5px;
   }
   tbody tr:last-child td{ border-bottom:none; }
-  tbody td.num-col{ text-align:right; font-weight:600; color:var(--mint-900); font-family:'Fraunces',serif; font-size:16px;}
+  tbody td.num-col{ text-align:right; font-weight:700; color:var(--mint-900); font-family:'Sarabun',sans-serif; font-size:15.5px;}
   tbody tr:hover{ background:var(--mint-50); }
   .dept-bar-cell{ display:flex; align-items:center; gap:10px; }
   .dept-bar-track{
     flex:1; height:6px; border-radius:4px; background:var(--mint-50); overflow:hidden; min-width:60px;
   }
   .dept-bar-fill{ height:100%; background:var(--mint-700); border-radius:4px; }
+  .dept-bar-fill.warn-ok{ background:var(--amber); }
+  .dept-bar-fill.full{ background:var(--red); }
+  .dept-pct-label{
+    font-size:12.5px; font-weight:600; color:var(--ink-soft);
+    min-width:36px; text-align:right; flex-shrink:0;
+  }
+  tbody td.accent-col{ color:var(--mint-900); }
+
+  /* ---------- Search section ---------- */
+  .search-box{
+    position:relative;
+    margin-bottom:18px;
+  }
+  .search-box input{
+    width:100%;
+    font-family:'Sarabun',sans-serif;
+    font-size:15px;
+    padding:13px 16px 13px 44px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:var(--paper);
+    color:var(--ink);
+    box-shadow:var(--shadow);
+    outline:none;
+    transition:border-color .15s;
+  }
+  .search-box input:focus{
+    border-color:var(--mint-700);
+  }
+  .search-box input::placeholder{ color:var(--ink-soft); }
+  .search-icon{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    width:18px;
+    height:18px;
+    color:var(--ink-soft);
+    pointer-events:none;
+  }
+  .search-meta{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-bottom:12px;
+  }
+  .search-results-wrap{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .search-empty{
+    padding:36px 20px;
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:14px;
+  }
+  .search-row-name{ font-weight:600; }
+  .search-row-sub{ font-size:12.5px; color:var(--ink-soft); margin-top:2px; }
+  .badge-slot{
+    display:inline-block;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--mint-900);
+    background:var(--mint-100);
+    padding:3px 10px;
+    border-radius:100px;
+    white-space:nowrap;
+  }
 
   /* ---------- Loading / error ---------- */
   .state-box{
@@ -343,8 +413,33 @@
 
     <section>
       <div class="section-head">
+        <h2>ค้นหาผู้ลงทะเบียน</h2>
+        <div class="hint">ค้นได้จากรหัสพนักงาน ชื่อ-นามสกุล หรือแผนก/หน่วยงาน</div>
+      </div>
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="searchInput" placeholder="พิมพ์รหัสพนักงาน ชื่อ-นามสกุล หรือแผนก/หน่วยงาน…" oninput="handleSearch()">
+      </div>
+      <div id="searchMeta" class="search-meta" style="display:none;"></div>
+      <div class="search-results-wrap" id="searchResultsWrap" style="display:none;">
+        <table>
+          <thead>
+            <tr>
+              <th>ชื่อ-นามสกุล</th>
+              <th>รหัสพนักงาน</th>
+              <th>แผนก/หน่วยงาน</th>
+              <th>รอบที่ลงทะเบียน</th>
+            </tr>
+          </thead>
+          <tbody id="searchResultsBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
         <h2>ยอดลงทะเบียนแต่ละรอบ</h2>
-        <div class="hint">ความจุรอบละ 60 ที่นั่ง</div>
+        <div class="hint">ความจุรอบละ 60 ที่นั่ง &middot; เปิดรับทั้งหมด 16 รอบ</div>
       </div>
       <div class="slot-grid" id="slotGrid"></div>
     </section>
@@ -359,8 +454,11 @@
           <thead>
             <tr>
               <th>แผนก / หน่วยงาน</th>
-              <th class="num-col" style="width:120px;">ลงทะเบียน</th>
-              <th style="width:200px;">สัดส่วน</th>
+              <th class="num-col" style="width:90px;">พนักงานทั้งหมด</th>
+              <th class="num-col" style="width:90px;">ลงทะเบียนแล้ว</th>
+              <th class="num-col" style="width:90px;">ยังไม่ลงทะเบียน</th>
+              <th style="width:170px;">% ลงทะเบียนของแผนก</th>
+              <th class="num-col" style="width:90px;">% ของยอดรวมทั้งหมด</th>
             </tr>
           </thead>
           <tbody id="deptTableBody"></tbody>
@@ -381,6 +479,31 @@ const CAPACITY_PER_SLOT = 60;
 const REFRESH_INTERVAL_MS = 30000;
 
 const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID}`;
+
+const ALL_SLOTS = [
+  "1 กรกฎาคม 2569: รอบเช้า (9.00-11.00 น.)",
+  "1 กรกฎาคม 2569: รอบบ่าย (14.00-16.00 น.)",
+  "6 กรกฎาคม 2569: รอบเช้า (9.00-11.00 น.)",
+  "6 กรกฎาคม 2569: รอบบ่าย (14.00-16.00 น.)",
+  "7 กรกฎาคม 2569: รอบเช้า (9.00-11.00 น.)",
+  "7 กรกฎาคม 2569: รอบบ่าย (14.00-16.00 น.)",
+  "8 กรกฎาคม 2569: รอบเช้า (9.00-11.00 น.)",
+  "14 กรกฎาคม 2569: รอบเช้า (9.00-11.00 น.)",
+  "14 กรกฎาคม 2569: รอบบ่าย (14.00-16.00 น.)",
+  "15 กรกฎาคม 2569: รอบเช้า (9.00-11.00 น.)",
+  "20 กรกฎาคม 2569: รอบเช้า (9.00-11.00 น.)",
+  "20 กรกฎาคม 2569: รอบบ่าย (14.00-16.00 น.)",
+  "21 กรกฎาคม 2569: รอบบ่าย (14.00-16.00 น.)",
+  "22 กรกฎาคม 2569: รอบเช้า (9.00-11.00 น.)",
+  "27 กรกฎาคม 2569: รอบเช้า (9.00-11.00 น.)",
+  "27 กรกฎาคม 2569: รอบบ่าย (14.00-16.00 น.)"
+];
+
+// จำนวนพนักงานทั้งหมดต่อแผนก/หน่วยงาน (ข้อมูล ณ วันที่จัดทำ Dashboard)
+const DEPT_HEADCOUNT = {"แผนกออกหน่วยB9KOM": 107, "แผนกลงทะเบียนB9KOM": 31, "เภสัชกรรม": 26, "เวชระเบียน": 24, "แผนก ICU": 24, "แผนกเอกซเรย์B9KOM": 23, "แผนกห้องผ่าตัด": 23, "แผนกประมวลผลB9KOM": 22, "แผนกห้องฉุกเฉิน": 21, "รังสีวิทยา": 21, "Ward 10 B": 20, "Ward 11": 20, "แผนกการเงินผู้ป่วย": 19, "ศูนย์ผิวหนังและศัลยกรรมตกแต่ง": 19, "หน่วยยานยนต์": 19, "Ward 12": 18, "กายภาพบำบัด": 18, "ห้องปฏิบัติการ": 18, "Ward 8": 17, "Ward 9": 17, "แผนก CCU": 17, "แผนกการตลาดต่างประเทศ(Arab)": 17, "แผนกยานยนต์B9KOM": 17, "แผนก OPD อายุรกรรม": 16, "หน่วยเคลื่อนย้ายผู้ป่วย": 16, "แผนกห้องปฏิบัติการแลบB9KOM": 15, "แผนก OPD กุมารเวช": 14, "ศูนย์ตรวจสุขภาพ (Check up)": 14, "แผนกวิศวกรรม": 13, "ฝ่ายเทคโนโลยีสารสนเทศ": 13, "Ward 7": 12, "แผนกการตลาดต่างประเทศ(Non-Arab)": 12, "แผนกทันตกรรม": 12, "แผนกการเงินทั่วไป": 11, "หน่วยกู้ชีพ": 11, "แผนกรับผู้ป่วยใน Admission": 10, "แผนกหู คอ จมูก": 10, "ฝ่ายการตลาด": 10, "แผนก OPD ศัลยกรรมกระดูกและข้อ": 9, "แผนกบัญชีรายได้": 9, "แผนกหน่วยส่องกล้องระบบทางเดินอาหาร": 9, "ศูนย์หัวใจ": 9, "แผนกแม่บ้านและซักรีด": 8, "ศูนย์ระบบทางเดินอาหารและตับ": 8, "BPK9 Wellness": 7, "HRM": 7, "แผนก Call Center": 7, "แผนก OPD ศัลยกรรม": 7, "แผนกไตเทียม": 7, "แผนกทารกแรกเกิด": 7, "ศูนย์พัฒนาการเด็กBe Smart Center": 7, "แผนก Cath Lab": 6, "แผนกการตลาดต่างประเทศ (EXPAT และประกันต่างประเทศ)": 6, "แผนกบริหารและทบทวนทรัพยากรทางการแพทย์": 6, "แผนกประสานงานองค์กรและเอกสารทางการแพทย์": 6, "แผนกสูตินรีเวช": 6, "ศูนย์พัฒนาคุณภาพ": 6, "หน่วยจ่ายกลาง": 6, "แผนก OPD จักษุ": 5, "แผนกบัญชีเจ้าหนี้": 5, "แผนกประกันชีวิต": 5, "แผนกลูกค้าสัมพันธ์": 5, "ศูนย์สมองและระบบประสาท": 5, "CRM Online": 4, "แผนกToxico B9KOM": 4, "แผนกเวชสถิติ": 4, "แผนกโภชนาการ": 4, "แผนกการตลาดต่างประเทศ(จีน)": 4, "แผนกบัญชี B9KOM": 4, "แผนกประสานงานเบิกจ่าย(งานClaim)": 4, "แผนกห้องคลอด": 4, "หน่วยเครื่องมือแพทย์": 4, "IV Nurse Service": 3, "แผนก Graphic & Art": 3, "แผนกPR&CSR": 3, "แผนกกฎหมาย": 3, "แผนกการตลาดลูกค้าองค์กร": 3, "แผนกบัญชีทรัพย์สิน": 3, "แผนกบัญชีทั่วไป": 3, "ศูนย์เวชศาสตร์การเจริญพันธุ์": 3, "สายงานบริหารการต่างประเทศ": 3, "สายงานพยาบาล": 3, "สำนักงานเลขานุการแพทย์": 3, "สำนักผู้อำนวยการ": 3, "หน่วยตรวจสุขภาพต่างด้าว": 3, "HRD": 2, "แผนกตรวจสอบภายใน": 2, "ฝ่ายตรวจสุขภาพ B9KOM": 2, "ห้องปฏิบัติการเพาะเลี้ยงตัวอ่อน": 2, "BPK Financial Team": 1, "แผนกการตลาดต่างประเทศ (Digital)": 1, "แผนกคลังสินค้า": 1, "แผนกบัญชีต้นทุน": 1, "หน่วยเบเกอรี่": 1};
+const TOTAL_EMPLOYEES = Object.values(DEPT_HEADCOUNT).reduce((a, b) => a + b, 0);
+
+let registrants = [];
 
 function parseGvizResponse(text) {
   const jsonStr = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
@@ -416,9 +539,11 @@ async function loadData() {
 
     const cols = data.table.cols.map(c => (c.label || '').trim());
     // Expect columns: ประทับเวลา, รหัสพนักงาน, ชื่อ-นามสกุล, ตำแหน่ง, แผนก/หน่วยงาน, เบอร์โทร, วันและเวลาที่ต้องการเข้าอบรม
+    const idxId = cols.findIndex(c => c.includes('รหัสพนักงาน'));
+    const idxName = cols.findIndex(c => c.includes('ชื่อ'));
+    const idxPosition = cols.findIndex(c => c.includes('ตำแหน่ง'));
     const idxDept = cols.findIndex(c => c.includes('แผนก'));
     const idxSlot = cols.findIndex(c => c.includes('วันและเวลา'));
-    const idxName = cols.findIndex(c => c.includes('ชื่อ'));
 
     const rows = data.table.rows
       .map(r => r.c)
@@ -427,17 +552,22 @@ async function loadData() {
     const slotCounts = {};
     const deptCounts = {};
     let totalRegistrations = 0;
+    const records = [];
 
     rows.forEach(cells => {
-      const slotCell = idxSlot >= 0 ? cells[idxSlot] : null;
-      const deptCell = idxDept >= 0 ? cells[idxDept] : null;
-      const nameCell = idxName >= 0 ? cells[idxName] : null;
+      const get = (idx) => {
+        if (idx < 0) return '';
+        const cell = cells[idx];
+        return cell && cell.v != null ? String(cell.v).trim() : '';
+      };
 
-      const slotVal = slotCell && slotCell.v != null ? String(slotCell.v).trim() : null;
-      const deptVal = deptCell && deptCell.v != null ? String(deptCell.v).trim() : null;
-      const hasName = nameCell && nameCell.v != null && String(nameCell.v).trim() !== '';
+      const idVal = get(idxId);
+      const nameVal = get(idxName);
+      const positionVal = get(idxPosition);
+      const deptVal = get(idxDept);
+      const slotVal = get(idxSlot);
 
-      if (!hasName) return; // skip blank/incomplete rows
+      if (!nameVal) return; // skip blank/incomplete rows
 
       totalRegistrations++;
 
@@ -447,9 +577,19 @@ async function loadData() {
       if (deptVal) {
         deptCounts[deptVal] = (deptCounts[deptVal] || 0) + 1;
       }
+
+      records.push({
+        id: idVal,
+        name: nameVal,
+        position: positionVal,
+        dept: deptVal,
+        slot: slotVal
+      });
     });
 
+    registrants = records;
     renderDashboard(slotCounts, deptCounts, totalRegistrations);
+    handleSearch();
 
     loadingState.style.display = 'none';
     errorState.style.display = 'none';
@@ -479,14 +619,13 @@ async function loadData() {
 
 function renderDashboard(slotCounts, deptCounts, totalRegistrations) {
   // ---- KPI row ----
-  const slotKeys = Object.keys(slotCounts);
-  const totalSlots = slotKeys.length;
+  const totalSlots = ALL_SLOTS.length;
   const totalCapacity = totalSlots * CAPACITY_PER_SLOT;
   const totalSeatsLeft = Math.max(totalCapacity - totalRegistrations, 0);
-  const fullSlots = slotKeys.filter(k => slotCounts[k] >= CAPACITY_PER_SLOT).length;
   const totalDepts = Object.keys(deptCounts).length;
 
   const kpiRow = document.getElementById('kpiRow');
+  const overallRegPct = TOTAL_EMPLOYEES > 0 ? (totalRegistrations / TOTAL_EMPLOYEES) * 100 : 0;
   kpiRow.innerHTML = `
     <div class="kpi">
       <div class="num accent">${totalRegistrations.toLocaleString('th-TH')}</div>
@@ -501,16 +640,15 @@ function renderDashboard(slotCounts, deptCounts, totalRegistrations) {
       <div class="lbl">ที่นั่งว่างรวม (จาก ${totalCapacity.toLocaleString('th-TH')})</div>
     </div>
     <div class="kpi">
-      <div class="num">${totalDepts}</div>
-      <div class="lbl">แผนก/หน่วยงานที่ลงทะเบียน</div>
+      <div class="num">${overallRegPct.toFixed(1)}%</div>
+      <div class="lbl">ลงทะเบียนแล้ว จากพนักงานทั้งหมด ${TOTAL_EMPLOYEES.toLocaleString('th-TH')} คน</div>
     </div>
   `;
 
-  // ---- Slot cards ----
-  const sortedSlots = slotKeys.sort((a, b) => thaiDateSortKey(a) - thaiDateSortKey(b));
+  // ---- Slot cards: render ALL 16 defined slots, even with 0 registrations ----
   const slotGrid = document.getElementById('slotGrid');
-  slotGrid.innerHTML = sortedSlots.map(slot => {
-    const count = slotCounts[slot];
+  slotGrid.innerHTML = ALL_SLOTS.map(slot => {
+    const count = slotCounts[slot] || 0;
     const seatsLeft = Math.max(CAPACITY_PER_SLOT - count, 0);
     const pct = Math.min((count / CAPACITY_PER_SLOT) * 100, 100);
 
@@ -544,27 +682,94 @@ function renderDashboard(slotCounts, deptCounts, totalRegistrations) {
   }).join('');
 
   // ---- Department table ----
-  const sortedDepts = Object.entries(deptCounts).sort((a, b) => b[1] - a[1]);
-  const maxDeptCount = sortedDepts.length ? sortedDepts[0][1] : 1;
-  document.getElementById('deptCount').textContent = `${sortedDepts.length} แผนก/หน่วยงาน`;
+  // ใช้รายชื่อแผนกจาก DEPT_HEADCOUNT เป็นหลัก (รวมแผนกที่ยังไม่มีคนลงทะเบียนเลยด้วย)
+  const allDeptNames = new Set([...Object.keys(DEPT_HEADCOUNT), ...Object.keys(deptCounts)]);
+  const deptRows = Array.from(allDeptNames).map(dept => {
+    const registered = deptCounts[dept] || 0;
+    const headcount = DEPT_HEADCOUNT[dept] || 0;
+    const remaining = Math.max(headcount - registered, 0);
+    const deptPct = headcount > 0 ? (registered / headcount) * 100 : 0;
+    const overallPct = TOTAL_EMPLOYEES > 0 ? (registered / TOTAL_EMPLOYEES) * 100 : 0;
+    return { dept, registered, headcount, remaining, deptPct, overallPct };
+  });
+
+  // เรียงจาก % การลงทะเบียนของแผนก มากไปน้อย
+  deptRows.sort((a, b) => b.deptPct - a.deptPct);
+
+  document.getElementById('deptCount').textContent =
+    `${deptRows.filter(r => r.registered > 0).length} จาก ${deptRows.length} แผนก/หน่วยงานมีผู้ลงทะเบียนแล้ว`;
 
   const deptTableBody = document.getElementById('deptTableBody');
-  deptTableBody.innerHTML = sortedDepts.map(([dept, count]) => {
-    const pct = (count / maxDeptCount) * 100;
+  deptTableBody.innerHTML = deptRows.map(r => {
+    let pctClass = '';
+    if (r.deptPct >= 100) pctClass = 'full';
+    else if (r.deptPct >= 50) pctClass = 'warn-ok';
+
     return `
       <tr>
-        <td>${dept}</td>
-        <td class="num-col">${count}</td>
+        <td>${r.dept}</td>
+        <td class="num-col">${r.headcount.toLocaleString('th-TH')}</td>
+        <td class="num-col accent-col">${r.registered.toLocaleString('th-TH')}</td>
+        <td class="num-col">${r.remaining.toLocaleString('th-TH')}</td>
         <td>
           <div class="dept-bar-cell">
             <div class="dept-bar-track">
-              <div class="dept-bar-fill" style="width:${pct}%;"></div>
+              <div class="dept-bar-fill ${pctClass}" style="width:${Math.min(r.deptPct, 100)}%;"></div>
             </div>
+            <span class="dept-pct-label">${r.deptPct.toFixed(0)}%</span>
           </div>
         </td>
+        <td class="num-col">${r.overallPct.toFixed(1)}%</td>
       </tr>
     `;
   }).join('');
+}
+
+function handleSearch() {
+  const input = document.getElementById('searchInput');
+  const metaEl = document.getElementById('searchMeta');
+  const wrapEl = document.getElementById('searchResultsWrap');
+  const bodyEl = document.getElementById('searchResultsBody');
+  if (!input) return;
+
+  const query = input.value.trim().toLowerCase();
+
+  if (!query) {
+    metaEl.style.display = 'none';
+    wrapEl.style.display = 'none';
+    bodyEl.innerHTML = '';
+    return;
+  }
+
+  const matches = registrants.filter(r => {
+    return (
+      (r.id && r.id.toLowerCase().includes(query)) ||
+      (r.name && r.name.toLowerCase().includes(query)) ||
+      (r.dept && r.dept.toLowerCase().includes(query))
+    );
+  });
+
+  metaEl.style.display = 'block';
+  wrapEl.style.display = 'block';
+
+  if (matches.length === 0) {
+    metaEl.textContent = 'ไม่พบผู้ลงทะเบียนที่ตรงกับคำค้นหา';
+    bodyEl.innerHTML = `<tr><td colspan="4"><div class="search-empty">ไม่พบรายการที่ตรงกัน ลองค้นด้วยรหัสพนักงาน ชื่อ หรือแผนกอื่น</div></td></tr>`;
+    return;
+  }
+
+  metaEl.textContent = `พบ ${matches.length.toLocaleString('th-TH')} รายการ`;
+  bodyEl.innerHTML = matches.map(r => `
+    <tr>
+      <td>
+        <div class="search-row-name">${r.name || '-'}</div>
+        ${r.position ? `<div class="search-row-sub">${r.position}</div>` : ''}
+      </td>
+      <td>${r.id || '-'}</td>
+      <td>${r.dept || '-'}</td>
+      <td><span class="badge-slot">${r.slot || '-'}</span></td>
+    </tr>
+  `).join('');
 }
 
 loadData();
